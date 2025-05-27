@@ -1,5 +1,5 @@
 const express = require('express');
-// const { getNextId } = require('./redisClient');
+const { getNextId } = require('./redisClient');
 // const { insertUrl } = require('./db');
 const { encode } = require('./base62');
 
@@ -9,8 +9,7 @@ app.use(express.json());
 app.post('/shorten', async (req, res) => {
   const { long_url } = req.body;
   if (!long_url) return res.status(400).send('Missing URL');
-//   const id = await getNextId();
-  const id = 12
+  const id = await getNextId();
 
   const shortCode = encode(id);
 //   await insertUrl(id, shortCode, long_url);
