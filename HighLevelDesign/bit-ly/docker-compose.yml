@@ -31,18 +31,19 @@ services:
     ports:
       - "8001:8001"
 
-
-  # read-service:
-  #   build: ./read-service
-  #   container_name: read-service
-  #   working_dir: /app/read-service
-  #   volumes:
-  #     - .:/app
-  #   environment:
-  #     REDIS_URL: redis://redis:6379
-  #     PG_URL: postgres://user:password@postgres:5432/bitly
-  #   ports:
-  #     - "8002:8002"
+  read-service:
+    build: ./read-service
+    container_name: read-service
+    volumes:
+      - ./read-service:/app
+    depends_on:
+      - redis
+      - postgres
+    environment:
+      REDIS_URL: redis://redis:6379
+      PG_URL: postgres://user:password@postgres:5432/bitly
+    ports:
+      - "8002:8002"
 
   api-gateway:
     image: nginx:alpine
@@ -53,4 +54,4 @@ services:
       - "80:80"
     depends_on:
       - write-service
-      # - read-service
+      - read-service

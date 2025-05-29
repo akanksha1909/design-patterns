@@ -1,4 +1,3 @@
-// db.js
 const { Pool } = require('pg');
 
 const pool = new Pool({
@@ -16,14 +15,6 @@ async function insertUrl(id, shortCode, longUrl) {
   await query(q, [id, shortCode, longUrl]);
 }
 
-// Retrieve original URL using short code
-async function getUrl(shortCode) {
-  const q = 'SELECT long_url FROM urls WHERE short_code = $1';
-  const result = await query(q, [shortCode]);
-  return result.rows[0]?.long_url || null;
-}
-
 module.exports = {
-  insertUrl,
-  getUrl,
+  insertUrl
 };
