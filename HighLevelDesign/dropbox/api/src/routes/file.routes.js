@@ -5,6 +5,10 @@ const s3 = require('../config/s3Client');
 
 const router = express.Router();
 
+router.get("/test", async (req, res) => {
+    console.log("Hello")
+});
+
 // This endpoint returns presigned url for a given file
 router.post('/presigned-url', async (req, res) => {
     try {
