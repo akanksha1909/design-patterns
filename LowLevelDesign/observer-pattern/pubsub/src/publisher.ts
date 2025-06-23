@@ -2,9 +2,9 @@ import { Message } from "./message";
 import { Topic } from "./topic";
 
 export class Publisher {
-    name: string;
+    private readonly _name: string;
     constructor(name: string) {
-        this.name = name;
+        this._name = name;
     }
 
     publish(topic: Topic, messageContent: string): void {

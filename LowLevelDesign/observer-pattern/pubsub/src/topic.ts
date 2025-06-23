@@ -2,25 +2,25 @@ import { Message } from "./message";
 import { ISubscriber } from "./subscriber";
 
 export class Topic {
-    name: string;
-    subscribers: Set<ISubscriber>;
+    private readonly _name: string;
+    private readonly _subscribers: Set<ISubscriber>;
 
     constructor(name: string) {
-        this.name = name;
-        this.subscribers = new Set();
+        this._name = name;
+        this._subscribers = new Set();
     }
 
     addSubscriber(subscriber: ISubscriber): void {
-        this.subscribers.add(subscriber)
+        this._subscribers.add(subscriber)
     }
 
     removeSubscriber(subscriber: ISubscriber): void {
-        this.subscribers.delete(subscriber)
+        this._subscribers.delete(subscriber)
     }
 
     publish(message: Message): void {
-        for (const subscriber of this.subscribers) {
-            subscriber.onMessage(this.name, message.content);
+        for (const subscriber of this._subscribers) {
+            subscriber.onMessage(this._name, message.content);
         }
     }
 }
