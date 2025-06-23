@@ -9,7 +9,7 @@ export class VehicleFactory {
         } else if (vehicleType == 'bike') {
             return new Bike(licenseNumber);
         } else {
-            console.log(`${vehicleType} not supported`);
+            throw new Error(`Vehicle type '${vehicleType}' is not supported`);
         }
     }
 }

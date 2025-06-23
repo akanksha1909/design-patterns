@@ -3,4 +3,8 @@ export abstract class Vehicle {
     constructor(licenseNumber: string) {
         this._licenseNo = licenseNumber;
     }
+
+    get licenseNo(): string {
+        return this._licenseNo;
+    }
 }
