@@ -5,4 +5,5 @@ export class Message {
     }
 
     get content(): string { return this._content; }
+
 }
