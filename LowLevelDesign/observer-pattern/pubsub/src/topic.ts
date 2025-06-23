@@ -1,3 +1,5 @@
+// Topic Class
+
 import { Message } from "./message";
 import { ISubscriber } from "./subscriber";
 

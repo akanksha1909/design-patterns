@@ -1,3 +1,5 @@
+// PubSub Clas
+
 import { Topic } from "./topic";
 
 export class PubSub {
