@@ -1,10 +1,11 @@
-import { ParkingFloor } from "./parking-floor";
+import { ParkingFloor } from "./parking/parking-floor";
 import { ParkingLot } from "./parking-lot";
-import { ParkingSpot } from "./parking-spot";
+import { ParkingSpot } from "./parking/parking-spot";
 import { Card } from "./payment/card";
 import { VehicleFactory } from "./vehicle/vehicle-factory";
 import { Vehicle } from "./vehicle/vehicle";
 import { VehicleType } from "./vehicle/vehicle-type";
+import { ParkingManager } from "./parking/parking-manager";
 
 const parkingLot = ParkingLot.getInstance();
 
@@ -22,8 +23,11 @@ const parkingSpotFloor21 = new ParkingSpot(1, VehicleType.CAR);
 const parkingFloorOne = new ParkingFloor(1, [parkingSpotFloor11, parkingSpotFloor12]);
 const parkingFloorTwo = new ParkingFloor(2, [parkingSpotFloor21]);
 
-parkingLot.addFloor(parkingFloorOne);
-parkingLot.addFloor(parkingFloorTwo);
+const parkingManager = new ParkingManager([]);
+parkingLot.setParkingManager(parkingManager);
+
+parkingManager.addFloor(parkingFloorOne);
+parkingManager.addFloor(parkingFloorTwo);
 
 const vehicles: Vehicle[] = [car1, car2, bike1, bike2];
 const tickets = [];

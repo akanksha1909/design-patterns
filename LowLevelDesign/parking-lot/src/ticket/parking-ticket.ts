@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
-import { Vehicle } from "./vehicle/vehicle";
-import { ParkingSpot } from "./parking-spot";
+import { Vehicle } from "../vehicle/vehicle";
+import { ParkingSpot } from "../parking/parking-spot";
 
 export class ParkingTicket {
     private readonly _entryTime: number;

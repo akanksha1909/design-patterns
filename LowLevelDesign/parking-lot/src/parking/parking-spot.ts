@@ -1,5 +1,5 @@
-import { Vehicle } from "./vehicle/vehicle";
-import { VehicleType } from "./vehicle/vehicle-type";
+import { Vehicle } from "../vehicle/vehicle";
+import { VehicleType } from "../vehicle/vehicle-type";
 
 export class ParkingSpot {
     private _vehicle: Vehicle | null = null;

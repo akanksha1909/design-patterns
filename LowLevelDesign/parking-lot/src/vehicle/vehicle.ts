@@ -1,7 +1,7 @@
 import { VehicleType } from "./vehicle-type";
 
 export abstract class Vehicle {
-    private readonly _licenseNo;
+    private readonly _licenseNo: string;
     private readonly _type: VehicleType;
     constructor(licenseNumber: string, vehicleType: VehicleType) {
         this._licenseNo = licenseNumber;

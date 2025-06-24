@@ -1,19 +1,22 @@
 import { FeeStrategy } from "./fee/fee-strategy";
 import { FlatFee } from "./fee/flat-fee";
-import { ParkingFloor } from "./parking-floor";
-import { ParkingTicket } from "./parking-ticket";
+import { ParkingFloor } from "./parking/parking-floor";
+import { ParkingTicket } from "./ticket/parking-ticket";
 import { PaymentStrategy } from "./payment/payment-strategy";
 import { Vehicle } from "./vehicle/vehicle";
+import { TicketManager } from "./ticket/ticket-manager";
+import { ParkingManager } from "./parking/parking-manager";
+
 
 export class ParkingLot {
     private static _instance: ParkingLot;
-    private readonly _floors: ParkingFloor[];
-    private readonly _activeTickets: Set<ParkingTicket>;
     private readonly _feeStrategy: FeeStrategy;
+    private readonly _ticketManager: TicketManager;
+    private _parkingManager!: ParkingManager;
+
 
     private constructor() {
-        this._floors = [];
-        this._activeTickets = new Set();
+        this._ticketManager = new TicketManager();
         this._feeStrategy = new FlatFee();
     }
 
@@ -24,28 +27,21 @@ export class ParkingLot {
         return ParkingLot._instance;
     }
 
-    addFloor(floor: ParkingFloor) {
-        this._floors.push(floor);
+    setParkingManager(manager: ParkingManager) {
+        this._parkingManager = manager;
     }
 
     parkVehicle(vehicle: Vehicle): ParkingTicket {
-        for (const floor of this._floors) {
-            const spot = floor.getParkingSpot(vehicle.vehicleType);
-            if (spot) {
-                spot.park(vehicle);
-                const ticket = new ParkingTicket(vehicle, spot);
-                this._activeTickets.add(ticket);
-                return ticket;
-            }
+        const spot = this._parkingManager.findSpot(vehicle.vehicleType);
+        if (spot) {
+            spot.park(vehicle);
+            return this._ticketManager.createTicket(vehicle, spot);
         }
         throw new Error('No available parking spot!');
     }
 
     unParkVehicle(ticket: ParkingTicket, paymentStrategy: PaymentStrategy) {
-        if (!this._activeTickets.has(ticket)) {
-            throw new Error('Invalid Ticket!');
-        }
-        this._activeTickets.delete(ticket);
+        this._ticketManager.removeTicket(ticket);
         const spot = ticket.parkingSpot;
         spot.unpark();
         ticket.setExit();

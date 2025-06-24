@@ -1,4 +1,4 @@
-import { ParkingTicket } from "../parking-ticket";
+import { ParkingTicket } from "../ticket/parking-ticket";
 import { VehicleType } from "../vehicle/vehicle-type";
 import { FeeStrategy } from "./fee-strategy";
 

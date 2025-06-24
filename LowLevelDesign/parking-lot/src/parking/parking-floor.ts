@@ -1,5 +1,5 @@
 import { ParkingSpot } from "./parking-spot";
-import { VehicleType } from "./vehicle/vehicle-type";
+import { VehicleType } from "../vehicle/vehicle-type";
 
 export class ParkingFloor {
     private readonly _floorNumber: number;

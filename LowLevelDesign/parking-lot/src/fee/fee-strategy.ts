@@ -1,4 +1,4 @@
-import { ParkingTicket } from "../parking-ticket";
+import { ParkingTicket } from "../ticket/parking-ticket";
 
 export interface FeeStrategy {
     calculateFee(ticket: ParkingTicket): number;
