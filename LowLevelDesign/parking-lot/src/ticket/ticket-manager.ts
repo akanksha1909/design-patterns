@@ -4,7 +4,6 @@ import { ParkingTicket } from "./parking-ticket";
 
 export class TicketManager {
     private readonly _activeTickets = new Set<ParkingTicket>();
-    constructor() { }
 
     createTicket(vehicle: Vehicle, spot: ParkingSpot): ParkingTicket {
         const ticket = new ParkingTicket(vehicle, spot);
@@ -14,7 +13,7 @@ export class TicketManager {
 
     removeTicket(ticket: ParkingTicket): void {
         if (!this._activeTickets.has(ticket)) {
-            throw new Error('Invalid Ticket!');
+            throw new Error('Ticket not found in active tickets. Unable to remove.')
         }
         this._activeTickets.delete(ticket);
         ticket.setExit();
