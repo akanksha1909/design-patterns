@@ -7,9 +7,25 @@ export class ParkingTicket {
     private _exitTime?: number;
     private readonly _ticketId: string;
 
-    constructor(public vehicle: Vehicle, public parkingSpot: ParkingSpot) {
+    constructor(private _vehicle: Vehicle, private _parkingSpot: ParkingSpot) {
         this._ticketId = randomUUID();
         this._entryTime = Date.now();
+    }
+
+    get vehicle(): Vehicle {
+        return this._vehicle;
+    }
+
+    get parkingSpot(): ParkingSpot {
+        return this._parkingSpot;
+    }
+
+    get ticketId(): string {
+        return this._ticketId;
+    }
+
+    get entryTime(): number {
+        return this._entryTime;
     }
 
     setExit() {

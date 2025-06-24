@@ -7,6 +7,10 @@ export class ParkingSpot {
     private readonly _vehicleType: VehicleType;
 
     constructor(spotNumber: number, vehicleType: VehicleType) {
+
+        if (spotNumber <= 0) {
+            throw new Error('Spot number must be positive');
+        }
         this._spotNumber = spotNumber;
         this._vehicleType = vehicleType;
     }

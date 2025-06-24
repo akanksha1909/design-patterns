@@ -3,10 +3,8 @@ import { Vehicle } from "../vehicle/vehicle";
 import { ParkingTicket } from "./parking-ticket";
 
 export class TicketManager {
-    private readonly _activeTickets = new Set();
-    constructor() {
-
-    }
+    private readonly _activeTickets = new Set<ParkingTicket>();
+    constructor() { }
 
     createTicket(vehicle: Vehicle, spot: ParkingSpot): ParkingTicket {
         const ticket = new ParkingTicket(vehicle, spot);

@@ -3,7 +3,7 @@ import { ParkingFloor } from "./parking-floor";
 import { ParkingSpot } from "./parking-spot";
 
 export class ParkingManager {
-    constructor(private _floors: ParkingFloor[]) {}
+    constructor(private _floors: ParkingFloor[]) { }
 
     findSpot(vehicleType: VehicleType): ParkingSpot | null {
         for (const floor of this._floors) {
@@ -14,6 +14,10 @@ export class ParkingManager {
     }
 
     addFloor(floor: ParkingFloor) {
+        if (this._floors.some(f => f.floorNumber === floor.floorNumber)) {
+            throw new Error('Floor already exists');
+        }
+
         this._floors.push(floor);
     }
 }
