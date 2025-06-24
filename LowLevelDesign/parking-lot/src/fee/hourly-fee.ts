@@ -16,10 +16,10 @@ export class HourlyFee implements FeeStrategy {
         const vehicleType = ticket.vehicle.vehicleType;
         const rate = this._hourlyRates.get(vehicleType);
         if (rate === undefined) {
-            throw new Error(`No flat fee defined for vehicle type: ${vehicleType}`);
+            throw new Error(`No hourly rate defined for vehicle type: ${vehicleType}`);
         }
         const durationInMs = ticket.getDuration();
-        const durationInHours = Math.ceil(durationInMs / 1000 * 60 * 60);
+        const durationInHours = Math.ceil(durationInMs / (1000 * 60 * 60));
         return rate * durationInHours;
     }
 }

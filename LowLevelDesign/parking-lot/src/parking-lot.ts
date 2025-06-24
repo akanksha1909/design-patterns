@@ -2,7 +2,7 @@ import { FeeStrategy } from "./fee/fee-strategy";
 import { FlatFee } from "./fee/flat-fee";
 import { ParkingFloor } from "./parking-floor";
 import { ParkingTicket } from "./parking-ticket";
-import { PaymentStategy } from "./payment/payment-stratgey";
+import { PaymentStrategy } from "./payment/payment-strategy";
 import { Vehicle } from "./vehicle/vehicle";
 
 export class ParkingLot {
@@ -41,7 +41,7 @@ export class ParkingLot {
         throw new Error('No available parking spot!');
     }
 
-    unParkVehicle(ticket: ParkingTicket, paymentStrategy: PaymentStategy) {
+    unParkVehicle(ticket: ParkingTicket, paymentStrategy: PaymentStrategy) {
         if (!this._activeTickets.has(ticket)) {
             throw new Error('Invalid Ticket!');
         }

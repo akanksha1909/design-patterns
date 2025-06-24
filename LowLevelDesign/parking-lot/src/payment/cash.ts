@@ -1,7 +1,7 @@
-import { PaymentStategy } from "./payment-stratgey";
+import { PaymentStrategy } from "./payment-strategy";
 
-export class Cash implements PaymentStategy {
+export class Cash implements PaymentStrategy {
     makePayment(amount: number): void {
-        console.log(`Paid ${amount} with card.`)
+        console.log(`Paid ${amount} with cash.`)
     }
 }

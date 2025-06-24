@@ -1,3 +1,3 @@
-export interface PaymentStategy {
+export interface PaymentStrategy {
     makePayment(amount: number): void;
 }

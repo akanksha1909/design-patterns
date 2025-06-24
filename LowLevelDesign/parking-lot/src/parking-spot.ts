@@ -5,7 +5,6 @@ export class ParkingSpot {
     private _vehicle: Vehicle | null = null;
     private readonly _spotNumber: number;
     private readonly _vehicleType: VehicleType;
-    private _occupied: boolean = false;
 
     constructor(spotNumber: number, vehicleType: VehicleType) {
         this._spotNumber = spotNumber;
@@ -17,7 +16,7 @@ export class ParkingSpot {
     }
 
     park(vehicle: Vehicle) {
-        if (this._occupied) {
+        if (this._vehicle) {
             throw new Error('Parking Spot is not available!');
         }
 
@@ -26,18 +25,16 @@ export class ParkingSpot {
         }
 
         this._vehicle = vehicle;
-        this._occupied = true;
     }
 
     unpark() {
-        if (!this._occupied) {
+        if (!this._vehicle) {
             throw new Error('No vehicle to unpark!');
         }
-        this._occupied = false;
         this._vehicle = null;
     }
 
     isAvailable(): boolean {
-        return !this._occupied;
+        return this._vehicle === null;
     }
 }

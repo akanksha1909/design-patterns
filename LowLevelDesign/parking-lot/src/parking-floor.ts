@@ -10,6 +10,6 @@ export class ParkingFloor {
     }
 
     getParkingSpot(vehicleType: VehicleType) {
-        return this._parkingSpots.find(spot => spot.vehicleType == vehicleType && spot.isAvailable())
+        return this._parkingSpots.find(spot => spot.vehicleType === vehicleType && spot.isAvailable()) || null;
     }
 }
