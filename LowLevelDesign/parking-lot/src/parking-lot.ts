@@ -24,12 +24,17 @@ export class ParkingLot {
         return ParkingLot._instance;
     }
 
+    addFloor(floor: ParkingFloor) {
+        this._floors.push(floor);
+    }
+
     parkVehicle(vehicle: Vehicle): ParkingTicket {
         for (const floor of this._floors) {
             const spot = floor.getParkingSpot(vehicle.vehicleType);
             if (spot) {
                 spot.park(vehicle);
                 const ticket = new ParkingTicket(vehicle, spot);
+                this._activeTickets.add(ticket);
                 return ticket;
             }
         }
