@@ -2,7 +2,7 @@ import { ParkingFloor } from "./parking-floor";
 import { ParkingLot } from "./parking-lot";
 import { ParkingSpot } from "./parking-spot";
 import { Card } from "./payment/card";
-import { VehicleFactory } from "./vehicle/vechicle-factory";
+import { VehicleFactory } from "./vehicle/vehicle-factory";
 import { Vehicle } from "./vehicle/vehicle";
 import { VehicleType } from "./vehicle/vehicle-type";
 
