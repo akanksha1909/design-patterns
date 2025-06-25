@@ -5,7 +5,7 @@ import { VendingMachineState } from "./VendingMachineState";
 
 export class IdleState extends VendingMachineState {
     insertCoin(coin: Coin): void {
-
+        console.log("Please select a product first before inserting coins");
     }
 
     selectProduct(product: Product): void {
@@ -19,6 +19,6 @@ export class IdleState extends VendingMachineState {
     }
 
     dispense(): void {
-
+        console.log("Please select a product and insert payment first");
     }
 }

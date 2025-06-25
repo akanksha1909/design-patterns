@@ -5,11 +5,11 @@ import { VendingMachineState } from "./VendingMachineState";
 
 export class DispenseState extends VendingMachineState {
     insertCoin(coin: Coin): void {
-
+        console.log("Cannot insert coins while dispensing. Please wait.");
     }
 
     selectProduct(product: Product): void {
-
+        console.log("Cannot select product while dispensing. Please wait.");
     }
 
     dispense(): void {
