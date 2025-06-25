@@ -2,7 +2,7 @@ import { State } from "./State";
 import { StoppedState } from "./StoppedState";
 
 export class MediaPlayer {
-    private _state;
+    private _state: State;
     constructor() {
         this._state = new StoppedState();
     }
