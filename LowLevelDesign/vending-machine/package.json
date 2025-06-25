@@ -2,7 +2,7 @@
   "name": "vending-machine",
   "version": "1.0.0",
   "description": "Vending machine",
-  "main": "src/Demo.ts",
+  "main": "dist/Demo.js",
   "scripts": {
     "build": "tsc",
     "start": "npm run build && node dist/Demo.js"

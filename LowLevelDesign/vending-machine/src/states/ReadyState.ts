@@ -12,10 +12,19 @@ export class ReadyState extends VendingMachineState {
     }
 
     selectProduct(product: Product): void {
-
+        console.log(`Product is already Selected! ${product.name}`)
     }
 
     dispense(): void {
+        const selectedProduct = this.vendingMachine.selectedProduct;
+        if (!selectedProduct) {
+            console.log("Please select a product first");
+            return;
+        }
+        const remainingAmount = selectedProduct.price - this.vendingMachine.payment;
+        if (remainingAmount > 0) {
+            console.log(`Please insert $${remainingAmount} more`);
+        }
 
     }
 }

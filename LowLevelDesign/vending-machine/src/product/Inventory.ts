@@ -16,13 +16,15 @@ export class Inventory {
 
     isAvailable(product: Product) {
         const quantity = this._products.get(product);
-        return Boolean(quantity);
+        return quantity !== undefined && quantity > 0;
     }
 
     dispenseProduct(product: Product) {
         const quantity = this._products.get(product);
-        if (quantity) {
+        if (quantity && quantity > 0) {
             this._products.set(product, quantity - 1);
+        } else {
+            throw new Error(`Product ${product.name} is not available for dispensing`);
         }
     }
 }
