@@ -1,5 +1,5 @@
 import { MediaPlayer } from "./MediaPlayer";
-import { PausedState } from "./PausingState";
+import { PausedState } from "./PausedState";
 import { State } from "./State";
 
 export class PlayingState implements State {
