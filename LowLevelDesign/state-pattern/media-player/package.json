@@ -1,0 +1,16 @@
+{
+  "name": "media-player",
+  "version": "1.0.0",
+  "main": "src/Demo.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node dist/Demo.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
