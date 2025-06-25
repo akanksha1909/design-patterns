@@ -1,0 +1,16 @@
+{
+  "name": "vending-machine",
+  "version": "1.0.0",
+  "description": "Vending machine",
+  "main": "src/Demo.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node dist/Demo.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
