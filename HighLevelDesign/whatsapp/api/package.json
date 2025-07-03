@@ -4,7 +4,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon src/server.js"
+    "start": "nodemon src/server.js",
+    "start:serverA": "set PORT=8080 && set SERVER_ID=Server-A && nodemon src/server.js",
+    "start:serverB": "set PORT=8081 && set SERVER_ID=Server-B && nodemon src/server.js"
   },
   "keywords": [],
   "author": "",
