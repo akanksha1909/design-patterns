@@ -1,17 +1,17 @@
 import { Inventory } from "./Inventory";
 
-export class InventoryService {
+export class InventoryManager {
     public inventories: Map<string, Inventory>;
-    private static instance: InventoryService;
+    private static instance: InventoryManager;
     private constructor() {
         this.inventories = new Map();
     }
 
-    static getInstance(): InventoryService {
-        if (!InventoryService.instance) {
-            InventoryService.instance = new InventoryService();
+    static getInstance(): InventoryManager {
+        if (!InventoryManager.instance) {
+            InventoryManager.instance = new InventoryManager();
         }
-        return InventoryService.instance;
+        return InventoryManager.instance;
     }
 
     addInventory(productId: string, quantity: number): void {
