@@ -1,0 +1,6 @@
+export class Inventory {
+    constructor(
+        public productId: string,
+        public stock: number
+    ) { }
+}
