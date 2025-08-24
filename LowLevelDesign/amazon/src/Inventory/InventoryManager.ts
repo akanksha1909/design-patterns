@@ -18,4 +18,17 @@ export class InventoryManager {
         const inventory= new Inventory(productId, quantity);
         this.inventories.set(inventory.productId, inventory);
     }
+
+    reduceInventory(productId: string, quantity: number): void {
+        const inventory = this.inventories.get(productId);
+        if (inventory) {
+            inventory.stock -= quantity;
+        } 
+    }
+
+    isAvailableStock(productId: string, quantity: number): boolean {
+        const inventory = this.inventories.get(productId);
+        if (!inventory) return false;
+        return inventory.stock >= quantity;
+    }
 }

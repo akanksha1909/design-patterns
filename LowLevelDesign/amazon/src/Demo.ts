@@ -3,8 +3,15 @@ import { EcommercePlatform } from "./ECommercePlatform";
 export class Demo {
     run() {
         const amazon = EcommercePlatform.getInstance();
-        amazon.addProductStock("1", "Laptop", 1000, 50);
-        amazon.addProductStock("2", "Smartphone", 500, 100);
+
+        const user1 = amazon.addUser("U1", 'John Doe', 'john.doe@example.com');
+        const user2 = amazon.addUser("U2", 'Jane Doe', 'jane@abs.com');
+
+        const laptop = amazon.addProductStock("P1", "Laptop", 1000, 50);
+        const book = amazon.addProductStock("P2", "Book", 500, 100);
+
+        amazon.addToCart(user1, laptop, 1);
+        amazon.addToCart(user1, book, 10);
     }
 }
 
