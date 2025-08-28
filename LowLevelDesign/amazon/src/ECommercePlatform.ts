@@ -2,14 +2,19 @@ import { ProductManager } from "./Product/ProductManager";
 import { UserManager } from "./User/UserManager";
 import { InventoryManager } from "./Inventory/InventoryManager";
 import { Product } from "./Product/Product";
-import { User } from "./User/User";
+import { OrderManager } from "./Order/OrderManager";
 import { CartManager } from "./Cart/CartManager";
+import { Order } from "./Order/Order";
+import { PaymentStrategy } from "./Payment/PaymentStrategy";
+import { User } from "./User/User";
 
 export class EcommercePlatform {
     public productManager: ProductManager;
     public inventoryService: InventoryManager;
     public userManager: UserManager;
     public cartManager: CartManager;
+    public orderManager: OrderManager;
+
     private static instance: EcommercePlatform;
 
     private constructor() {
@@ -17,6 +22,7 @@ export class EcommercePlatform {
         this.productManager = ProductManager.getInstance(this.inventoryService);
         this.userManager = UserManager.getInstance();
         this.cartManager = CartManager.getInstance();
+        this.orderManager = OrderManager.getInstance(this.cartManager, this.productManager, this.inventoryService);
     }
 
     static getInstance(): EcommercePlatform {
@@ -24,6 +30,10 @@ export class EcommercePlatform {
             EcommercePlatform.instance = new EcommercePlatform();
         }
         return EcommercePlatform.instance;
+    }
+
+    searchProductByName(name: string): Product[] {
+        return this.productManager.searchProductByName(name);
     }
 
     addUser(id: string, name: string, email: string) {
@@ -36,14 +46,24 @@ export class EcommercePlatform {
         return product;
     }
 
-    addToCart(user: User, product: Product, quantity: number) {
+    addToCart(userId: string, product: Product, quantity: number) {
         if (!this.inventoryService.isAvailableStock(product.id, quantity)) {
             console.log(`Insufficient stock for ${product.name}.`);
             return;
         }
-        console.log(`Added ${quantity} of ${product.name} to ${user.name}'s cart.`);
-        this.inventoryService.reduceInventory(product.id, quantity);
-        
-        this.cartManager.addItemToCart(user.id, product.id, quantity)
+        this.cartManager.addItemToCart(userId, product, quantity)
+    }
+
+    placeOrder(user: User, paymentStrategy: PaymentStrategy): Order | void {
+        return this.orderManager.createOrder(user, paymentStrategy)
+    }
+
+    deliverOrder(orderId: string): void {
+        const order = this.orderManager.orders.get(orderId);
+        order?.deliverOrder();
+    }
+
+    getProductInventory(productId: string): number {
+        return this.inventoryService.getStock(productId);
     }
 }

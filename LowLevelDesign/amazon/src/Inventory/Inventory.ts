@@ -3,4 +3,8 @@ export class Inventory {
         public productId: string,
         public stock: number
     ) { }
+
+    updateStock(quantity: number){
+        this.stock += quantity;
+    }
 }

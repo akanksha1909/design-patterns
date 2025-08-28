@@ -19,6 +19,13 @@ export class InventoryManager {
         this.inventories.set(inventory.productId, inventory);
     }
 
+    updateInventory(productId: string, quantity: number): void {
+        const inventory = this.inventories.get(productId);   
+        if (inventory) {
+            inventory.updateStock(quantity);
+        }   
+    }
+
     reduceInventory(productId: string, quantity: number): void {
         const inventory = this.inventories.get(productId);
         if (inventory) {
@@ -30,5 +37,10 @@ export class InventoryManager {
         const inventory = this.inventories.get(productId);
         if (!inventory) return false;
         return inventory.stock >= quantity;
+    }
+
+    getStock(productId: string): number {
+        const inventory = this.inventories.get(productId);
+        return inventory ? inventory.stock : 0;
     }
 }

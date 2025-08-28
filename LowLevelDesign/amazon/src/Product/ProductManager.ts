@@ -24,4 +24,14 @@ export class ProductManager {
         this.products.set(id, product);
         return product;
     }
+
+    public searchProductByName(name: string): Product[] {
+        const result: Product[] = [];
+        for (const product of this.products.values()) {
+            if (product.name.toLowerCase().includes(name.toLowerCase())) {
+                result.push(product);
+            }
+        }
+        return result;
+    }
 }

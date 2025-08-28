@@ -1,3 +1,4 @@
+import { Product } from "../Product/Product";
 import { Cart } from "./Cart";
 import { CartItem } from "./CartItem";
 
@@ -32,17 +33,17 @@ export class CartManager {
         return this.carts.get(userId);
     }
 
-    addItemToCart(userId: string, productId: string, quantity: number): void {
+    addItemToCart(userId: string, product: Product, quantity: number): void {
         const cart = this.getUserCart(userId);
         if (!cart) {
             throw new Error("Cart not found for user");
         }
         const items = this.cartItems.get(cart.id) || [];
-        const existingCartItem = items.find(item => item.productId === productId);
+        const existingCartItem = items.find(item => item.product.getId() === product.getId());
         if (existingCartItem) {
             existingCartItem.updateQuantity(quantity);
         } else {
-            items.push(new CartItem(cart.id, productId, quantity));
+            items.push(new CartItem(cart.id, product, quantity));
         }
         this.cartItems.set(cart.id, items);
     }
@@ -51,5 +52,23 @@ export class CartManager {
         const cart = this.carts.get(userId);
         if (!cart) return [];
         return this.cartItems.get(cart.id) || [];
+    }
+
+    calculateTotalPrice(userId: string): number {
+        const cart = this.carts.get(userId);  
+        if (!cart) return 0;
+        let total = 0;
+        const items = this.cartItems.get(cart.id) || [];    
+          for (const item of items) {
+            total += item.product.getPrice() * item.quantity;
+        }
+        return total
+    }
+
+    clearCart(userId: string): void {
+        const cart = this.carts.get(userId);
+        if (cart) {
+            this.cartItems.set(cart.id, []);
+        }
     }
 }
