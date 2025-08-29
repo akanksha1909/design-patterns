@@ -3,13 +3,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Game = void 0;
 const Board_1 = require("./Board");
 const GameStatus_1 = require("./enum/GameStatus");
+const GameSubject_1 = require("./observer/GameSubject");
 const InProgress_1 = require("./state/InProgress");
 const AntiDiagWinningStrategy_1 = require("./strategy/AntiDiagWinningStrategy");
 const ColWinningStrategy_1 = require("./strategy/ColWinningStrategy");
 const DiagonalWinningStrategy_1 = require("./strategy/DiagonalWinningStrategy");
 const RowWinningStrategy_1 = require("./strategy/RowWinningStrategy");
-class Game {
+class Game extends GameSubject_1.GameSubject {
     constructor(player1, player2) {
+        super();
         this.player1 = player1;
         this.player2 = player2;
         this.board = new Board_1.Board(3);
@@ -33,6 +35,11 @@ class Game {
     }
     setStatus(status) {
         this.status = status;
+        console.log(`Game status changed to: ${GameStatus_1.GameStatus[status]}`);
+        if (status !== GameStatus_1.GameStatus.INPROGRESS) {
+            console.log(`Notifying observers about game status change...`);
+            this.notifyObservers();
+        }
     }
     setState(state) {
         this.state = state;

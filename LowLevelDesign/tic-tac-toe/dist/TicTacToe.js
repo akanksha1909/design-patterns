@@ -2,9 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TicTacToe = void 0;
 const Game_1 = require("./Game");
+const Scoreboard_1 = require("./Scoreboard");
 class TicTacToe {
     constructor() {
         // Private constructor to prevent instantiation
+        this.scoreboard = new Scoreboard_1.Scoreboard();
     }
     static getInstance() {
         if (!TicTacToe.instance) {
@@ -14,6 +16,7 @@ class TicTacToe {
     }
     createGame(player1, player2) {
         this.game = new Game_1.Game(player1, player2);
+        this.game.registerObserver(this.scoreboard);
     }
     printBoard() {
         this.game.board.printBoard();

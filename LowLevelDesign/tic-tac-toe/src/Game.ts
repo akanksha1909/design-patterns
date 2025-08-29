@@ -1,5 +1,6 @@
 import { Board } from "./Board";
 import { GameStatus } from "./enum/GameStatus";
+import { GameSubject } from "./observer/GameSubject";
 import { Player } from "./Player";
 import { GameState } from "./state/GameState";
 import { InProgressState } from "./state/InProgress";
@@ -9,7 +10,7 @@ import { DiagonalWinningStrategy } from "./strategy/DiagonalWinningStrategy";
 import { RowWinningStrategy } from "./strategy/RowWinningStrategy";
 import { WinningStrategy } from "./strategy/WinningStrategy";
 
-export class Game {
+export class Game extends GameSubject {
     public board: Board;
     public currentPlayer: Player;
     public status: GameStatus;
@@ -17,6 +18,7 @@ export class Game {
     private winner!: Player;
     public winningStrategies: WinningStrategy[]
     constructor(public player1: Player, public player2: Player) {
+        super()
         this.board = new Board(3);
         this.player1 = player1;
         this.player2 = player2;
@@ -41,6 +43,11 @@ export class Game {
 
     setStatus(status: GameStatus): void {
         this.status = status;
+        console.log(`Game status changed to: ${GameStatus[status]}`);
+        if(status !== GameStatus.INPROGRESS) {
+            console.log(`Notifying observers about game status change...`);
+            this.notifyObservers()
+        }
     }
 
     setState(state: GameState): void {
