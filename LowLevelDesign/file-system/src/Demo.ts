@@ -10,7 +10,16 @@ class Demo {
         const commands = [
             "pwd",
             "mkdir /home",
-            "mkdir /home/user"
+            "mkdir /home/user",
+            "cd /home",
+            "ls",
+            "touch test.txt",
+            "echo 'Hello, World!' > test.txt",
+            "cat test.txt",
+            "ls -l",
+            "cd ..",
+            "ls -l"
+
         ]
 
         for (const command of commands) {

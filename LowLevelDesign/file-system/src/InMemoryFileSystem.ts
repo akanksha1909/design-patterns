@@ -1,6 +1,7 @@
 import { Directory } from "./composite/Directory";
 import { File } from "./composite/File";
 import { FileSystemNode } from "./composite/FileSystemNode";
+import { ListingStrategy } from "./strategy/ListingStrategy";
 
 export class InMemoryFileSystem {
     private static instance: InMemoryFileSystem;
@@ -67,7 +68,7 @@ export class InMemoryFileSystem {
         parent.addChild(newNode);
     }
 
-    private getNode(path: string): FileSystemNode  | undefined {
+    private getNode(path: string): FileSystemNode | undefined {
         console.log(`Getting node at path: ${path}`);
         console.log(`Current working directory: ${this.currentDirectory.name}`);
         if (path === "/") {
@@ -97,4 +98,67 @@ export class InMemoryFileSystem {
         }
         return current;
     }
+
+    public listContents(strategy: ListingStrategy, path?: string): void {
+        if (!path) {
+            // No path → list current directory
+            strategy.list(this.currentDirectory);
+            return;
+        }
+
+        const node = this.getNode(path);
+        if (!node) {
+            console.error(`ls: cannot access '${path}': No such file or directory`);
+            return;
+        }
+
+        if (node instanceof Directory) {
+            strategy.list(node);
+        } else {
+            // Mimic Unix behavior: if ls is pointed at a file, just print the file name
+            console.log(node.getName());
+        }
+    }
+
+
+    public changeDirectory(path: string): void {
+        const node = this.getNode(path);
+
+        if (node instanceof Directory) {
+            this.currentDirectory = node;
+        } else {
+            console.log(`Error: '${path}' is not a directory.`);
+        }
+    }
+
+    public createFile(path: string): void {
+        this.createNode(path, false);
+    }
+
+    public writeToFile(path: string, content: string): void {
+        const node = this.getNode(path);
+
+        if (node instanceof File) {
+            node.setContent(content);
+        } else {
+            console.log(
+                `Error: Cannot write to '${path}'. It is not a file or does not exist.`
+            );
+        }
+    }
+
+    public readFile(path: string): string {
+        const node = this.getNode(path);
+
+        if (node instanceof File) {
+            return node.getContent();
+        }
+
+        console.log(
+            `Error: Cannot read from '${path}'. It is not a file or does not exist.`
+        );
+        return "";
+    }
+
+
 }
