@@ -1,4 +1,7 @@
 package com.notification.strategy;
 
-public class NotificationGateway {
+import com.notification.Notification;
+
+public interface NotificationGateway {
+    void send(Notification notification);
 }

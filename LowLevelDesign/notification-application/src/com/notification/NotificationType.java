@@ -1,4 +1,7 @@
 package com.notification;
 
-public class NotificationType {
+enum NotificationType {
+    EMAIL,
+    SMS,
+    PUSH
 }
