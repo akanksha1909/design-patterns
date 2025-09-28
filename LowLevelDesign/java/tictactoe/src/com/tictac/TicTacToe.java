@@ -18,7 +18,7 @@ public class TicTacToe {
 
     public void createGame(Player player1, Player player2) {
         this.game = new Game(player1, player2);
-        System.out.printf("Game started between %s (X) and %s (O)", player1.getName(), player2.getName());
+        System.out.printf("Game started between %s (X) and %s (O) %n", player1.getName(), player2.getName());
     }
 
     public void makeMove(int row, int col, Player player) {
