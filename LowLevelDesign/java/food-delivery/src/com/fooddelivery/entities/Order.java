@@ -1,5 +1,6 @@
 package com.fooddelivery.entities;
 
+import com.fooddelivery.enums.OrderStatus;
 import com.fooddelivery.state.OrderState;
 import com.fooddelivery.state.PlacedOrderState;
 
@@ -13,6 +14,7 @@ public class Order {
     private DeliveryAgent deliveryAgent;
     private final List<OrderItem> orderItems;
     private OrderState orderState;
+    private OrderStatus orderStatus;
 
     public Order(Customer customer, Restaurant restaurant, List<OrderItem> orderItems) {
         this.id = UUID.randomUUID().toString();
@@ -20,6 +22,7 @@ public class Order {
         this.restaurant = restaurant;
         this.orderItems = orderItems;
         this.orderState = new PlacedOrderState();
+        this.orderStatus = OrderStatus.PENDING;
     }
 
     public void setOrderState(OrderState orderState) {
@@ -28,6 +31,10 @@ public class Order {
 
     public void confirm() {
         this.orderState.confirm(this);
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
 }
