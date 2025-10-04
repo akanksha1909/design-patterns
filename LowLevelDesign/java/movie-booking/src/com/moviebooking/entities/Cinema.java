@@ -1,5 +1,6 @@
 package com.moviebooking.entities;
 
+import java.util.List;
 import java.util.UUID;
 
 public class Cinema {
@@ -12,5 +13,17 @@ public class Cinema {
         this.name = name;
         this.city = city;
         this.screens = screens;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public City getCity() {
+        return this.city;
     }
 }

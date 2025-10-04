@@ -5,9 +5,11 @@ import java.util.UUID;
 public class User {
     private final String id;
     private final String name;
-    public User(String name) {
+    private final String email;
+    public User(String name, String email) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
+        this.email = email;
     }
 
     public String getId() {
@@ -16,5 +18,9 @@ public class User {
 
     public String getName() {
         return this.name;
+    }
+
+    public String getEmail() {
+        return this.email;
     }
 }
