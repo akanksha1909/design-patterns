@@ -35,6 +35,10 @@ public class Demo {
         service.createShow(avengers, screenOne, LocalDateTime.now().plusHours(10), new WeekendPricingStrategy());
 
         User alice = service.createUser("Alice", "alice@example.com");
+
+        matrix.addObserver(alice);
+        matrix.notifyObservers(matrix);
+
         String movieTitle = "Avengers: Endgame";
         String cityName = "Bangalore";
         List<Show> availableShows = service.findShows(movieTitle, cityName);

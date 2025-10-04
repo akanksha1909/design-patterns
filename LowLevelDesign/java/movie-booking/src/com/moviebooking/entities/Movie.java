@@ -1,8 +1,10 @@
 package com.moviebooking.entities;
 
+import com.moviebooking.observer.MovieSubject;
+
 import java.util.UUID;
 
-public class Movie {
+public class Movie extends MovieSubject {
     private final String id;
     private final String title;
     private final Integer durationInMinutes;

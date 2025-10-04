@@ -82,5 +82,6 @@ public class MovieBookingApplication {
     public void shutdown() {
         this.seatLockManager.shutdown();
         System.out.println("Movie Ticket Booking System has been shut down!");
+
     }
 }
