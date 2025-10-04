@@ -56,4 +56,8 @@ public class SeatLockManager {
     public void unlockSeats(User user, Show show, List<Seat> seats){
 
     }
+
+    public void shutdown() {
+        scheduler.shutdown();
+    }
 }

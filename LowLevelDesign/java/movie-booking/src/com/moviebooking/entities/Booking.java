@@ -1,5 +1,7 @@
 package com.moviebooking.entities;
 
+import com.moviebooking.enums.SeatStatus;
+
 import java.util.List;
 
 public class Booking {
@@ -14,6 +16,16 @@ public class Booking {
         this.show = show;
         this.seats = seats;
         this.totalAmount = totalAmount;
+    }
+
+    public void confirmBooking() {
+        for (Seat seat: seats) {
+            seat.setSeatStatus(SeatStatus.BOOKED);
+        }
+    }
+
+    public double getTotalAmount() {
+        return this.totalAmount;
     }
 
     public static class BookingBuilder {

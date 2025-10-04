@@ -2,11 +2,14 @@ package com.moviebooking;
 
 import com.moviebooking.entities.*;
 import com.moviebooking.enums.SeatType;
+import com.moviebooking.strategy.payment.PaymentStrategy;
+import com.moviebooking.strategy.pricing.PricingStrategy;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MovieBookingApplication {
@@ -51,8 +54,8 @@ public class MovieBookingApplication {
         return movie;
     }
 
-    public Show createShow(Movie movie, Screen screen, LocalDateTime startTime) {
-        Show show = new Show(movie, screen, startTime);
+    public Show createShow(Movie movie, Screen screen, LocalDateTime startTime, PricingStrategy pricingStrategy) {
+        Show show = new Show(movie, screen, startTime, pricingStrategy);
         this.shows.put(show.getId(), show);
         return show;
     }
@@ -72,7 +75,12 @@ public class MovieBookingApplication {
         return result;
     }
 
-    public Booking bookTickets(String userId, String showId, List<Seat> seats){
-        return this.bookingManager.createBooking(this.users.get(userId), this.shows.get(showId), seats);
+    public Optional<Booking> bookTickets(String userId, String showId, List<Seat> seats, PaymentStrategy paymentStrategy){
+        return this.bookingManager.createBooking(this.users.get(userId), this.shows.get(showId), seats, paymentStrategy);
+    }
+
+    public void shutdown() {
+        this.seatLockManager.shutdown();
+        System.out.println("Movie Ticket Booking System has been shut down!");
     }
 }

@@ -3,10 +3,15 @@ package com.moviebooking;
 import com.moviebooking.entities.*;
 import com.moviebooking.enums.SeatStatus;
 import com.moviebooking.enums.SeatType;
+import com.moviebooking.strategy.payment.CreditCardStrategy;
+import com.moviebooking.strategy.payment.PaymentStrategy;
+import com.moviebooking.strategy.pricing.WeekdayPricingStrategy;
+import com.moviebooking.strategy.pricing.WeekendPricingStrategy;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Demo {
@@ -26,11 +31,11 @@ public class Demo {
         Movie matrix = service.addMovie("The Matrix", 120);
         Movie avengers = service.addMovie("Avengers: Endgame", 120);
 
-        service.createShow(matrix, screenOne, LocalDateTime.now().plusHours(2));
-        service.createShow(avengers, screenOne, LocalDateTime.now().plusHours(10));
+        service.createShow(matrix, screenOne, LocalDateTime.now().plusHours(2), new WeekdayPricingStrategy());
+        service.createShow(avengers, screenOne, LocalDateTime.now().plusHours(10), new WeekendPricingStrategy());
 
         User alice = service.createUser("Alice", "alice@example.com");
-        String movieTitle = "The matrix";
+        String movieTitle = "Avengers: Endgame";
         String cityName = "Bangalore";
         List<Show> availableShows = service.findShows(movieTitle, cityName);
         if(availableShows.isEmpty()) {
@@ -47,7 +52,12 @@ public class Demo {
             System.out.println("Seats " + seat.getSeatType());
         });
 
-        Booking movieBooking = service.bookTickets(alice.getId(), selectedShow.getId(), desiredSeats);
+        PaymentStrategy creditCardPayment = new CreditCardStrategy("123-456-789", "123");
+        Optional<Booking> movieBooking = service.bookTickets(alice.getId(), selectedShow.getId(), desiredSeats, creditCardPayment);
+        if(movieBooking.isPresent()) {
+            System.out.println("Total booking amount " + movieBooking.get().getTotalAmount());
+        }
 
+        service.shutdown();
     }
 }
