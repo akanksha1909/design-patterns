@@ -5,6 +5,7 @@ import com.inventorymanagement.entities.Product;
 import com.inventorymanagement.entities.Transaction;
 import com.inventorymanagement.entities.Warehouse;
 import com.inventorymanagement.enums.TransactionType;
+import com.inventorymanagement.observer.LowStockAlertObserver;
 
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +45,7 @@ public class InventoryManagerApplication {
     public void addProductToInventory(String warehouseId, String productId, Integer quantity) {
         Warehouse warehouse = this.warehouses.get(warehouseId);
         Product product = this.products.get(productId);
-        Inventory inventory = new Inventory(product, quantity, warehouse);
+        Inventory inventory = new Inventory(product, quantity, warehouse, 5, new LowStockAlertObserver());
         warehouse.addProductToInventory(productId, inventory);
 
         Transaction transaction = new Transaction(warehouse, product, TransactionType.INITIALSTOCK, quantity);
@@ -78,7 +79,7 @@ public class InventoryManagerApplication {
         });
     }
 
-    public void getLogs() {
+    public void getAuditLogs() {
         for(Transaction log: auditService.getLogs()) {
             System.out.println("Product Name " + log.getProduct().getName());
             System.out.println("Warehouse " + log.getWarehouse().getName());
