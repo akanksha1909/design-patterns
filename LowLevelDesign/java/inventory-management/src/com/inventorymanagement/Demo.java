@@ -13,6 +13,9 @@ public class Demo {
         service.addProductToInventory(w1.getId(), samsungPhone.getId(), 10);
         service.addProductToInventory(w1.getId(), iPhone.getId(), 5);
 
+        service.addStock(w1.getId(), samsungPhone.getId(), 20);
+        service.removeStock(w1.getId(), samsungPhone.getId(), 5);
+
         service.getLogs();
     }
 }

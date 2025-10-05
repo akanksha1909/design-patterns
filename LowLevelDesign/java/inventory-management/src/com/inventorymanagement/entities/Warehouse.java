@@ -22,6 +22,10 @@ public class Warehouse {
         return this.name;
     }
 
+    public Inventory getInventoryOfProduct(String productId) {
+        return this.inventories.get(productId);
+    }
+
     public void addProductToInventory(String productId, Inventory inventory) {
         this.inventories.put(productId, inventory);
     }

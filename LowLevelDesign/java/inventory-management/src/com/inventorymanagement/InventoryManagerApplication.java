@@ -47,7 +47,26 @@ public class InventoryManagerApplication {
         Inventory inventory = new Inventory(product, quantity, warehouse);
         warehouse.addProductToInventory(productId, inventory);
 
-        Transaction transaction = new Transaction(warehouse, product, TransactionType.INITIALSTOCK);
+        Transaction transaction = new Transaction(warehouse, product, TransactionType.INITIALSTOCK, quantity);
+        auditService.addLog(transaction);
+    }
+
+    public void addStock(String warehouseId, String productId, Integer quantity) {
+        Warehouse warehouse = this.warehouses.get(warehouseId);
+        Product product = this.products.get(productId);
+        Inventory inventory = warehouse.getInventoryOfProduct(productId);
+        inventory.updateStock(quantity);
+
+        Transaction transaction = new Transaction(warehouse, product, TransactionType.ADD, quantity);
+        auditService.addLog(transaction);
+    }
+
+    public void removeStock(String warehouseId, String productId, Integer quantity) {
+        Warehouse warehouse = this.warehouses.get(warehouseId);
+        Product product = this.products.get(productId);
+        Inventory inventory = warehouse.getInventoryOfProduct(productId);
+        inventory.updateStock(-quantity);
+        Transaction transaction = new Transaction(warehouse, product, TransactionType.REMOVE, inventory.getQuantity());
         auditService.addLog(transaction);
     }
 
