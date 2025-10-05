@@ -22,6 +22,10 @@ public class Warehouse {
         return this.name;
     }
 
+    public Map<String, Inventory> getInventories() {
+        return this.inventories;
+    }
+
     public Inventory getInventoryOfProduct(String productId) {
         return this.inventories.get(productId);
     }

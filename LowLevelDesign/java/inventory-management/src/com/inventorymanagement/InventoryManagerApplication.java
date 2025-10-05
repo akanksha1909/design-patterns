@@ -70,6 +70,14 @@ public class InventoryManagerApplication {
         auditService.addLog(transaction);
     }
 
+    public void viewInventory(String warehouseId) {
+        Warehouse w1 = this.warehouses.get(warehouseId);
+        Map<String, Inventory> inventories = w1.getInventories();
+        inventories.forEach((productId, inventory) -> {
+            System.out.println("ProductName: " + this.products.get(productId).getName() + " Inventory: " + inventory.getQuantity());
+        });
+    }
+
     public void getLogs() {
         for(Transaction log: auditService.getLogs()) {
             System.out.println("Product Name " + log.getProduct().getName());

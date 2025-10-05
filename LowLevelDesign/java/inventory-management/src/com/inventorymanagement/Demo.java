@@ -8,14 +8,17 @@ public class Demo {
         InventoryManagerApplication service = InventoryManagerApplication.getInstance();
         Warehouse w1 = service.createWarehouse("W1");
         Product samsungPhone = service.createProduct("Samsung Galaxy", "Premium phone");
-        Product iPhone = service.createProduct("iPhone 11", "Premium phone");
+        Product iPhone = service.createProduct("iPhone11", "Premium phone");
 
         service.addProductToInventory(w1.getId(), samsungPhone.getId(), 10);
         service.addProductToInventory(w1.getId(), iPhone.getId(), 5);
 
+        // View Initial Inventory
+        service.viewInventory(w1.getId());
+
         service.addStock(w1.getId(), samsungPhone.getId(), 20);
         service.removeStock(w1.getId(), samsungPhone.getId(), 5);
 
-        service.getLogs();
+//        service.getLogs();
     }
 }
