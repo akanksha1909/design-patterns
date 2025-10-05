@@ -54,7 +54,25 @@ public class SeatLockManager {
     }
 
     public void unlockSeats(User user, Show show, List<Seat> seats){
-
+        synchronized (show) {
+            Map<Seat, String> showLocks = lockedSeats.get(show);
+            if(showLocks != null) {
+                for(Seat seat: seats) {
+                    if(showLocks.containsKey(seat) && showLocks.get(seat).equals(user.getId())) {
+                        showLocks.remove(seat);
+                        if(seat.getSeatStatus() == SeatStatus.LOCKED) {
+                            seat.setSeatStatus(SeatStatus.AVAILABLE);
+                            System.out.println("Unlocked Seat: " + seat.getId() + " due to timeout.");
+                        } else {
+                            System.out.println("Unlocked Seat:  " + seat.getId() + " due to booking completion.");
+                        }
+                    }
+                }
+                if(showLocks.isEmpty()) {
+                    lockedSeats.remove(show);
+                }
+            }
+        }
     }
 
     public void shutdown() {
