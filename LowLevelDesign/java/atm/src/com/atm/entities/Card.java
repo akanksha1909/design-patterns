@@ -7,4 +7,8 @@ public class Card {
         this.cardNumber = cardNumber;
         this.pin = pin;
     }
+
+    public String getPin() {
+        return this.pin;
+    }
 }

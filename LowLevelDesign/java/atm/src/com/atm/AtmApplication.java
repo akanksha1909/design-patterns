@@ -1,12 +1,17 @@
 package com.atm;
 
+import com.atm.entities.Card;
+import com.atm.enums.OperationType;
 import com.atm.state.AtmState;
+import com.atm.state.IdleState;
 
 public class AtmApplication {
     private static AtmApplication instance;
     private AtmState currentState;
+    private Card currentCard;
+    public BankService bankService = BankService.getInstance();
     private AtmApplication(){
-
+        this.currentState = new IdleState();
     }
 
     public static synchronized AtmApplication getInstance() {
@@ -16,7 +21,28 @@ public class AtmApplication {
         return instance;
     }
 
-    public void insertCard() {
-
+    public void setAtmState(AtmState state) {
+        this.currentState = state;
     }
+
+    public void setCurrentCard(Card card) {
+        this.currentCard = card;
+    }
+
+    public Card getCurrentCard() {
+        return this.currentCard;
+    }
+
+    public void insertCard(String cardNumber) {
+        this.currentState.insertCard(this, cardNumber);
+    }
+
+    public void enterPin(String pin) {
+        this.currentState.enterPin(this, pin);
+    }
+
+    public void selectOperation(OperationType type) {
+        this.currentState.selectOperation(this, type);
+    }
+
 }
