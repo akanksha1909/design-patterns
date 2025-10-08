@@ -7,9 +7,14 @@ public class Demo {
         AtmApplication service = AtmApplication.getInstance();
 
         // Check balance
+//        service.insertCard("123455555");
+//        service.enterPin("1234");
+//        service.selectOperation(OperationType.CHECK_BALANCE);
+
+        // Deposit amount
         service.insertCard("123455555");
         service.enterPin("1234");
-        service.selectOperation(OperationType.CHECK_BALANCE);
+        service.selectOperation(OperationType.DEPOSIT_CASH, 400);
 
     }
 }

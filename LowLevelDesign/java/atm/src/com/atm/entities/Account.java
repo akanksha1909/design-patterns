@@ -12,4 +12,12 @@ public class Account {
     public double getBalance() {
         return this.balance;
     }
+
+    public void depositMoney(double amount) {
+        this.balance += amount;
+    }
+
+    public void withdraw(double amount) {
+        this.balance -= amount;
+    }
 }

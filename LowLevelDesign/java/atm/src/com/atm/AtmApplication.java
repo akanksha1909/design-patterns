@@ -41,8 +41,12 @@ public class AtmApplication {
         this.currentState.enterPin(this, pin);
     }
 
-    public void selectOperation(OperationType type) {
-        this.currentState.selectOperation(this, type);
+    public void selectOperation(OperationType type, Integer ...args) {
+        this.currentState.selectOperation(this, type, args);
+    }
+
+    public void withdrawCash(double amount) {
+
     }
 
 }

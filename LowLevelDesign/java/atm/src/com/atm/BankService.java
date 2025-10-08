@@ -48,4 +48,12 @@ public class BankService {
     public double getBalance(Card card) {
         return this.cardAccountMap.get(card).getBalance();
     }
+
+    public void depositMoney(Card card, double amount) {
+        this.cardAccountMap.get(card).depositMoney(amount);
+    }
+
+    public void withdrawAmount(Card card, double amount) {
+        this.cardAccountMap.get(card).withdraw(amount);
+    }
 }
