@@ -8,6 +8,7 @@ public class InProgressState implements GameState {
         game.getBoard().updateBoardCell(row, col, player.getSymbol());
         if(game.checkWinner(player)) {
             game.setWinner(player);
+            game.notifyObservers(game);
             game.setGameState(new WinnerState());
         } else if (game.getBoard().isFull()) {
             System.out.println("Game ended in draw!");

@@ -18,5 +18,23 @@ public class Demo {
         system.makeMove(2, 1, bob);
         system.makeMove(0, 2, alice);
 
+
+        system.createGame(alice, bob);
+
+        system.makeMove(0, 0, bob);
+        system.makeMove(1, 1, alice);
+        system.makeMove(0, 1, bob);
+        system.makeMove(2, 1, alice);
+        system.makeMove(0, 2, bob);
+
+        system.createGame(alice, bob);
+
+        system.makeMove(0, 0, alice);
+        system.makeMove(1, 1, bob);
+        system.makeMove(0, 1, alice);
+        system.makeMove(2, 1, bob);
+        system.makeMove(0, 2, alice);
+
+
     }
 }

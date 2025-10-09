@@ -1,5 +1,6 @@
 package com.tictac.entities;
 
+import com.tictac.observer.GameSubject;
 import com.tictac.state.GameState;
 import com.tictac.state.InProgressState;
 import com.tictac.strategy.RowWinningStrategy;
@@ -7,7 +8,7 @@ import com.tictac.strategy.WinningStrategy;
 
 import java.util.List;
 
-public class Game {
+public class Game extends GameSubject {
     private final Board board;
     private GameState gameState;
     private Player currentPlayer;
@@ -23,7 +24,6 @@ public class Game {
         this.player1 = player1;
         this.player2 = player2;
         this.winningStrategies = List.of(new RowWinningStrategy());
-
     }
 
     public void makeMove(int row, int col, Player player) {
