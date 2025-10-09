@@ -1,5 +1,6 @@
 package com.atm;
 
+import com.atm.dispenserchain.*;
 import com.atm.entities.Card;
 import com.atm.enums.OperationType;
 import com.atm.state.AtmState;
@@ -10,8 +11,15 @@ public class AtmApplication {
     private AtmState currentState;
     private Card currentCard;
     public BankService bankService = BankService.getInstance();
+    private CashDispenser cashDispenser;
     private AtmApplication(){
         this.currentState = new IdleState();
+        DispenseChain c1 = new NoteDispenser100(1);
+        DispenseChain c2 = new NoteDispenser50(10);
+        DispenseChain c3 = new NoteDispenser20(2);
+        c1.setNextChain(c2);
+        c2.setNextChain(c3);
+        this.cashDispenser = new CashDispenser(c1);
     }
 
     public static synchronized AtmApplication getInstance() {
@@ -45,7 +53,16 @@ public class AtmApplication {
         this.currentState.selectOperation(this, type, args);
     }
 
-    public void withdrawCash(double amount) {
+    public void withdrawCash(int amount) {
+        if(!cashDispenser.canDispense(amount)) {
+            throw new IllegalStateException("Insufficient cash available in the ATM");
+        }
+        bankService.withdrawAmount(this.currentCard, amount);
+        try {
+            this.cashDispenser.dispenseCash(amount);
+        } catch (Exception e) {
+            bankService.depositMoney(this.currentCard, amount);
+        }
 
     }
 

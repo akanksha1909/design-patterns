@@ -16,5 +16,10 @@ public class Demo {
         service.enterPin("1234");
         service.selectOperation(OperationType.DEPOSIT_CASH, 400);
 
+        service.insertCard("123455555");
+        service.enterPin("1234");
+        service.selectOperation(OperationType.WITHDRAW_CASH, 1000);
+
+
     }
 }
