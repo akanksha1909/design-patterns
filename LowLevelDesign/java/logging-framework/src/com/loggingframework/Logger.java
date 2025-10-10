@@ -1,5 +1,6 @@
 package com.loggingframework;
 
+import com.loggingframework.entities.LogMessage;
 import com.loggingframework.enums.LogLevel;
 import com.loggingframework.strategies.appender.LogAppender;
 
@@ -18,7 +19,44 @@ public class Logger {
         this.appenders = new CopyOnWriteArrayList<>();
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public Logger getParent() {
+        return this.parent;
+    }
+
     public void setLevel(LogLevel minLevel) {
         this.level = minLevel;
+    }
+
+    public void addAppender(LogAppender appender) {
+        appenders.add(appender);
+    }
+
+    public List<LogAppender> getAppenders() {
+        return appenders;
+    }
+
+    public LogLevel getEffectiveLevel() {
+        Logger current = this;
+        while (current != null) {
+            if(current.level != null) {
+                return current.level;
+            }
+            current = current.parent;
+        }
+        return LogLevel.DEBUG;
+    }
+
+    public void log(LogLevel messageLevel, String message) {
+        if(messageLevel.isGreaterOrEqual(getEffectiveLevel())) {
+            LogMessage logMessage = new LogMessage(messageLevel, this.name, message);
+        }
+    }
+
+    public void info(String message) {
+        log(LogLevel.INFO, message);
     }
 }

@@ -1,4 +1,4 @@
 package com.loggingframework.strategies.appender;
 
-public class FileAppender {
+public class FileAppender implements LogAppender {
 }
