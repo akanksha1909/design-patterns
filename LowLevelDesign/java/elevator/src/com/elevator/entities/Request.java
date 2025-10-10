@@ -14,5 +14,16 @@ public class Request {
         this.source = requestSource;
     }
 
+    public Direction getDirection() {
+        return this.direction;
+    }
+
+    public int getTargetFloor() {
+        return targetFloor;
+    }
+
+    public RequestSource getSource() {
+        return this.source;
+    }
 
 }
