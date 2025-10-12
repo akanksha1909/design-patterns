@@ -7,9 +7,11 @@ public class LogManager {
     private static LogManager instance;
     private final Logger rootLogger;
     private final Map<String, Logger> loggers = new ConcurrentHashMap<>();
+    private final AsyncLogProcessor processor;
     private LogManager() {
         this.rootLogger = new Logger("root", null);
         this.loggers.put("root", rootLogger);
+        this.processor = new AsyncLogProcessor();
     }
 
     public static synchronized LogManager getInstance() {
@@ -39,12 +41,20 @@ public class LogManager {
         return new Logger(name, parent);
     }
 
+    AsyncLogProcessor getProcessor() {
+        return processor;
+    }
+
     public void getLoggers() {
         this.loggers.forEach((key, value) -> {
             if(value.getParent() != null) {
                 System.out.println("Logger Name: " + key + " Parent Name: " +  value.getParent().getName());
             }
         });
+    }
 
+    public void shutdown() {
+        // Stop the processor first to ensure all logs are written
+        processor.stop();
     }
 }

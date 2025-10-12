@@ -12,6 +12,7 @@ public class Logger {
     private final Logger parent;
     private LogLevel level;
     private final List<LogAppender> appenders;
+    private boolean additivity = true;
 
     Logger(String name, Logger parent) {
         this.name = name;
@@ -50,13 +51,31 @@ public class Logger {
         return LogLevel.DEBUG;
     }
 
+    private void callAppenders(LogMessage logMessage) {
+        if(!appenders.isEmpty()) {
+            LogManager.getInstance().getProcessor().process(logMessage, this.appenders);
+        }
+        if(additivity && parent != null) {
+            parent.callAppenders(logMessage);
+        }
+    }
+
     public void log(LogLevel messageLevel, String message) {
         if(messageLevel.isGreaterOrEqual(getEffectiveLevel())) {
             LogMessage logMessage = new LogMessage(messageLevel, this.name, message);
+            callAppenders(logMessage);
         }
     }
 
     public void info(String message) {
         log(LogLevel.INFO, message);
+    }
+
+    public void debug(String message) {
+        log(LogLevel.DEBUG, message);
+    }
+
+    public void warn(String message) {
+        log(LogLevel.WARN, message);
     }
 }
