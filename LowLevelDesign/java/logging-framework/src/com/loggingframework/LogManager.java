@@ -3,6 +3,8 @@ package com.loggingframework;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.loggingframework.strategies.appender.LogAppender;
+
 public class LogManager {
     private static LogManager instance;
     private final Logger rootLogger;
@@ -56,5 +58,11 @@ public class LogManager {
     public void shutdown() {
         // Stop the processor first to ensure all logs are written
         processor.stop();
+         // Then, close all appenders.
+        loggers.values().stream()
+                .flatMap(logger -> logger.getAppenders().stream())
+                .distinct()
+                .forEach(LogAppender::close);
+        System.out.println("Logging framework shut down gracefully.");
     }
 }
