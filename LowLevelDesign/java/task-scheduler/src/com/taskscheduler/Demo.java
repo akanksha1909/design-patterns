@@ -1,5 +1,6 @@
 package com.taskscheduler;
 
+import com.taskscheduler.observer.LoggingObserver;
 import com.taskscheduler.strategy.OneTimeSchedulingStrategy;
 import com.taskscheduler.strategy.RecurringSchedulingStrategy;
 import com.taskscheduler.strategy.SchedulingStrategy;
@@ -14,6 +15,8 @@ public class Demo {
     public static void main(String[] args) throws InterruptedException {
         TaskSchedulerService scheduler = TaskSchedulerService.getInstance();
         scheduler.initialize(10);
+
+        scheduler.addObserver(new LoggingObserver());
 
         // One time Task, 5 seconds from now
         Task oneTimeDelivery = new PrintMessageTask("This is a one time task");

@@ -1,16 +1,20 @@
 package com.taskscheduler;
 
+import com.taskscheduler.observer.TaskExecutionObserver;
 import com.taskscheduler.strategy.SchedulingStrategy;
 import com.taskscheduler.task.Task;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.PriorityBlockingQueue;
 
 public class TaskSchedulerService {
     private static TaskSchedulerService instance;
     private Thread[] workers;
     private volatile boolean isRunning=true;
+    private final List<TaskExecutionObserver> observers = new ArrayList<>();
     private final PriorityBlockingQueue<ScheduledTask> taskQueue = new PriorityBlockingQueue<>();
 
     private TaskSchedulerService() {}
@@ -66,11 +70,14 @@ public class TaskSchedulerService {
     }
 
     private void execute(ScheduledTask task) {
+        observers.forEach(o -> o.onTaskStarted(task));
         try {
             task.getTask().execute();
             task.updateLastExecutionTime();
+            observers.forEach(o -> o.onTaskCompleted(task));
         } catch (Exception e) {
             System.err.printf("Task %s failed with error: %s%n", task.getId(), e.getMessage());
+            observers.forEach(o -> o.onTaskFailed(task, e));
         } finally {
             // Rescheduling Logic
             task.updateNextExecutionTime();
@@ -82,7 +89,12 @@ public class TaskSchedulerService {
         }
     }
 
+    public void addObserver(TaskExecutionObserver observer) {
+        observers.add(observer);
+    }
+
     public void shutDown() {
+        isRunning = false;
         for(Thread worker: workers) {
             worker.interrupt();
         }
