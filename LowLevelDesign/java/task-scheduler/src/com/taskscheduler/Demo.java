@@ -32,6 +32,7 @@ public class Demo {
         scheduler.schedule(oneTimeDelivery, oneTimeStrategy);
         scheduler.schedule(recurringTask, recurringStrategy);
 
+        System.out.println("Scheduler is running. Waiting for tasks to execute...(Demo will run for 15 seconds)");
         Thread.sleep(15000);
 
         scheduler.shutDown();

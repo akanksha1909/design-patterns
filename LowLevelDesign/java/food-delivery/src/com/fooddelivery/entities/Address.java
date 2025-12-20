@@ -17,4 +17,11 @@ public class Address {
     public String getCity() {
         return this.city;
     }
+
+    public double distanceTo(Address other){
+        double latDiff = this.latitude - other.latitude;
+        double longDiff = this.longitude - other.longitude;
+        return Math.sqrt(latDiff*latDiff + longDiff*longDiff);
+    }
 }
+

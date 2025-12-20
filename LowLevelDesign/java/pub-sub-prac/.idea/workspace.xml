@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="916b66b0-51c1-4bdf-8520-fd6d2400c270" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../food-delivery/src/com/fooddelivery/strategies/assignment/DeliveryAssignmentStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../food-delivery/src/com/fooddelivery/strategies/assignment/NearestAvailableAgentStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../my-java-project/src/main/java/com/ratelimiter/Demo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../my-java-project/src/main/java/com/ratelimiter/FixedWindowRateLimiter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../my-java-project/src/main/java/com/ratelimiter/TokenBucketRateLimiter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../my-java-project/src/test/java/com/ratelimiter/FixedWindowRateLimiterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../my-java-project/src/test/java/com/ratelimiter/TokenBucketRateLimiterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rate-limiter/src/com/ratelimiter/strategies/LeakyBucketRateLimiter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rate-limiter/src/com/ratelimiter/strategies/SlidingWindowCounterRateLimiter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rate-limiter/src/com/ratelimiter/strategies/SlidingWindowLogRateLimiter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java-basics/src/com/example/Example.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java-basics/src/com/example/Example.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../food-delivery/src/com/fooddelivery/entities/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/../food-delivery/src/com/fooddelivery/entities/Address.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../food-delivery/src/com/fooddelivery/entities/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../food-delivery/src/com/fooddelivery/entities/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../food-delivery/src/com/fooddelivery/entities/DeliveryAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../food-delivery/src/com/fooddelivery/entities/DeliveryAgent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../food-delivery/src/com/fooddelivery/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/../food-delivery/src/com/fooddelivery/entities/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../logging-framework/src/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../logging-framework/src/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rate-limiter/src/com/ratelimiter/RateLimiterDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../rate-limiter/src/com/ratelimiter/RateLimiterDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../task-scheduler/src/com/taskscheduler/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../task-scheduler/src/com/taskscheduler/Demo.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="35FGGyXZQvAp7Wx4Eg20P3pia2T" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Demo.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "task-scheduler",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/anshuman/Documents/Akanksha/design-patterns/LowLevelDesign/java/pub-sub-prac",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="916b66b0-51c1-4bdf-8520-fd6d2400c270" name="Changes" comment="" />
+      <created>1762698314802</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1762698314802</updated>
+    </task>
+    <servers />
+  </component>
+</project>

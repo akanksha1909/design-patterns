@@ -37,4 +37,11 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
+    public Restaurant getRestaurant() {
+        return this.restaurant;
+    }
+
+    public Customer getCustomer() {
+        return this.customer;
+    }
 }
