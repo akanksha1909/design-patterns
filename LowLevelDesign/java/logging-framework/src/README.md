@@ -33,3 +33,11 @@ System.out.println(s);
 If another thread does list.add("C") while iteration is happening,
 the iterator won’t throw ConcurrentModificationException —
 because the iterator is reading from an old snapshot.
+
+If we use normal arraylist, [10, 20, 30]
+Thread A reads
+for (int x : list) { ... }
+
+Thread B writes at the same time.
+
+Thread A's iterator doesn't expect array to suddenly grow, can crash, throwing ConcurrentModificationException.

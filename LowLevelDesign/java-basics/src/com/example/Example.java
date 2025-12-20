@@ -54,16 +54,16 @@ public class Example {
 //        Worker-2 - Count: 2 (Thread: Thread-1)
 //        Worker-1 - Count: 2 (Thread: Thread-0)
 
-        SharedCounter task = new SharedCounter();
-
-        Thread t1 = new Thread(task, "Worker-1");
-        Thread t2 = new Thread(task, "Worker-2");
-        Thread t3 = new Thread(task, "Worker-3");
-
-        t1.start();
-        t2.start();
-        t3.start();
-
+//        SharedCounter task = new SharedCounter();
+//
+//        Thread t1 = new Thread(task, "Worker-1");
+//        Thread t2 = new Thread(task, "Worker-2");
+//        Thread t3 = new Thread(task, "Worker-3");
+//
+//        t1.start();
+//        t2.start();
+//        t3.start();
+//
         int totalThreads = 3;
 
         for (int i = 0; i < totalThreads; i++) {
