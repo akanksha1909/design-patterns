@@ -1,0 +1,41 @@
+package com.learnings.javathreads.exercise.producerconsumerchallenge;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ShoeWarehouse {
+    public final static String[] PRODUCT_LIST = {"Running Shoes", "Sandals", "Boots", "Slippers", "High Tops"};
+    private List<Order> shippingItems;
+
+    public ShoeWarehouse() {
+        this.shippingItems = new ArrayList<>();
+    }
+
+    public synchronized void receiveOrder(Order item) {
+        while (shippingItems.size() > 20) {
+                try {
+                    wait();
+                } catch(InterruptedException e) {
+
+                }
+        }
+        shippingItems.add(item);
+        System.out.println("Incoming: " + item);
+        notifyAll();
+    }
+
+    public synchronized Order fulfillOrder() {
+        while(shippingItems.isEmpty()) {
+            try {
+                wait();
+            } catch(InterruptedException e) {
+
+            }
+        }
+        Order item = shippingItems.remove(0);
+        System.out.println(Thread.currentThread().getName() + " Fulfilled: " + item);
+        notifyAll();
+        return item;
+    }
+
+}
