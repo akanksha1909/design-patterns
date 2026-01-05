@@ -18,8 +18,20 @@ public class ThreadDemo {
 
         CustomThread customThread = new CustomThread();
         customThread.start();
-        // If we call customThread.run(), it will run the code synchronously.
+        // If we call "customThread.run()", it will run the code synchronously.
 
+         for(int i=0; i<3;i++) {
+            System.out.print(" 0 ");
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch(InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Output:   1  0  1  0  1  1  0  0  0 (Main thread and custom thread are running concurrently)
+
+        // All of the three threads are running and executing   
         Runnable myRunnable = () -> {
             for(int i=0; i<3;i++) {
                 System.out.print(" 2 ");

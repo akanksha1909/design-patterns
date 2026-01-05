@@ -12,7 +12,6 @@ export class InMemoryFileSystem {
         // Private constructor to prevent instantiation
         this.root = new Directory("/", null);
         this.currentDirectory = this.root;
-
     }
 
     public static getInstance(): InMemoryFileSystem {
@@ -67,6 +66,20 @@ export class InMemoryFileSystem {
         const newNode = isDirectory ? new Directory(name, parent) : new File(name, parent);
         parent.addChild(newNode);
     }
+
+    // /
+    // ├── home
+    // │   └── user
+    // │       ├── docs
+    // │       │   └── a.txt
+    // │       └── photo.jpg
+    // └── var
+    // getNode("/home/user/docs") -> returns Directory docs
+    // getNode("docs/a.txt") -> returns File(a.txt)
+    // getNode("./docs") -> /home/user/docs
+    // getNode("../photo.jpg") -> 
+
+
 
     private getNode(path: string): FileSystemNode | undefined {
         console.log(`Getting node at path: ${path}`);

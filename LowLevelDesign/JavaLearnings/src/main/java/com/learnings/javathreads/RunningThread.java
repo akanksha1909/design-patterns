@@ -28,19 +28,28 @@ public class RunningThread {
             System.out.println("\n" + tname + " completed");
         });
 
-        Thread installThread = new Thread(() -> {
-            try {
-                for(int i = 0; i < 3; i++) {
-                    Thread.sleep(250);
-                    System.out.println("Installation Step " + ( i + 1) + " is completed");
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }, "InstallThread");
+//        Thread installThread = new Thread(() -> {
+//            try {
+//                for(int i = 0; i < 3; i++) {
+//                    Thread.sleep(250);
+//                    System.out.println("Installation Step " + ( i + 1) + " is completed");
+//                }
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }, "InstallThread");
 
         System.out.println(thread.getName() + " starting");
         thread.start();
+        System.out.println("Main Thread would continue here...");
+
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        thread.interrupt();
 
         long now = System.currentTimeMillis();
         while(thread.isAlive()) {
@@ -55,30 +64,23 @@ public class RunningThread {
                 e.printStackTrace();
             }
         }
-
-        try {
-            thread.join(); // Main thread, stop here and wait until this thread is done.
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        if(!thread.isInterrupted()) {
-            installThread.start();
-        } else {
-            System.out.println("Previous Thread was interrupted, " + installThread.getName() + " can't run.");
-        }
+//
+//        try {
+//            thread.join(); // Main thread, stop here and wait until this thread is done.
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        if(!thread.isInterrupted()) {
+//            installThread.start();
+//        } else {
+//            System.out.println("Previous Thread was interrupted, " + installThread.getName() + " can't run.");
+//        }
 
 //        System.out.println("C. State = " + thread.getState());
 
-//        System.out.println("Main Thread would continue here...");
 
-//        try {
-//            Thread.sleep(2000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        thread.interrupt();
+
 
     }
 }
