@@ -57,8 +57,10 @@ public class TaskSchedulerService {
 //                System.out.println(waitTime);
 
                 if(waitTime > 0) {
+                    taskQueue.put(task);     // put it back
                     // Wait for scheduled Time
-                    Thread.sleep(waitTime);
+                    Thread.sleep(Math.min(waitTime, 100)); // short sleep
+                    continue;
                 }
                 execute(task);
 

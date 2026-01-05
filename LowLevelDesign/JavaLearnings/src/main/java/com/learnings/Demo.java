@@ -1,6 +1,7 @@
 package com.learnings;
 
 import com.learnings.javathreads.ProducerConsumer;
+import com.learnings.javathreads.RunningThread;
 import com.learnings.javathreads.exercise.producerconsumerchallenge.DemoClass;
 import com.learnings.javathreads.synchronizationEx.SyncDemo;
 
@@ -47,8 +48,9 @@ public class Demo {
 //        ThreadDemo threadDemo = new ThreadDemo();
 //        threadDemo.execute();
 
-//        RunningThread runningThread = new RunningThread();
-//        runningThread.execute();
+       RunningThread runningThread = new RunningThread();
+       runningThread.execute();
+
 
         // Excercise
 //        ExcerciseDemo ed = new ExcerciseDemo();
@@ -63,8 +65,8 @@ public class Demo {
 //        ProducerConsumer pc = new ProducerConsumer();
 //        pc.execute();
 
-        DemoClass dc = new DemoClass();
-        dc.execute();
+        // DemoClass dc = new DemoClass();
+        // dc.execute();
 
 //        EvenOdd evenOdd = new EvenOdd(15);
 //        evenOdd.execute();
