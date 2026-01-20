@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Docs Clone</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="toolbar">
+            <h1>Google Docs Clone</h1>
+            <div class="controls">
+                <button id="appendBtn" class="btn">Append Text</button>
+                <button id="replaceBtn" class="btn">Replace Text</button>
+                <input type="text" id="textInput" placeholder="Enter text..." />
+                <input type="number" id="replaceLength" placeholder="Replace length" value="0" min="0" />
+            </div>
+        </header>
+        
+        <div class="editor-container">
+            <div class="editor" id="editor" contenteditable="true" spellcheck="false">
+                <div class="cursor" id="cursor"></div>
+            </div>
+        </div>
+        
+        <div class="status-bar">
+            <span id="cursorInfo">Cursor: 0</span>
+            <span id="charCount">Characters: 0</span>
+            <span id="lineCount">Lines: 1</span>
+        </div>
+    </div>
+    
+    <script src="editor.js"></script>
+</body>
+</html>
+

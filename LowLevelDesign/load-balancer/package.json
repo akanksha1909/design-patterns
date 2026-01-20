@@ -1,0 +1,22 @@
+{
+  "name": "load-balancer",
+  "version": "1.0.0",
+  "description": "Extensible Load Balancer with dynamic configuration",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "mock-server": "node mock-backend-server.js",
+    "debug": "node debug-servers.js",
+    "test-lb": "node test-load-balancing.js"
+  },
+  "keywords": ["load-balancer", "nodejs"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.6.0",
+    "cors": "^2.8.5"
+  }
+}
+
