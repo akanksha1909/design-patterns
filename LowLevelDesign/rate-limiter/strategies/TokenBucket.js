@@ -1,31 +1,69 @@
-// A bucket has a capacity
-// refillInterval
+import { MutexLock } from '../MutexLock.js'
 
+// refillRatePerSecond: 1 token per second
 class TokenBucket {
-    constructor(capacity, refillRate) {
+    constructor(capacity, refillRatePerSecond) {
         this.capacity = capacity;
-        this.refillRate = refillRate;
-        this.lastRefillTimeStamp = new Date();
-        this.tokens = this.capacity;
+        this.userbuckets = new Map();
+        this.refillRatePerSecond = refillRatePerSecond;
+        this.mutex = new MutexLock();
+    }
+    
+    async allowRequest(userId, requestCount) {
+        // Wrap the entire critical section in the lock
+        // This ensures check, refill, and decrement are atomic
+        return await this.mutex.execute(userId, async () => {
+            // Create bucket if it doesn't exist (inside lock to prevent race condition)
+            if(!this.userbuckets.has(userId)) {
+                this.userbuckets.set(userId, new UserBucket(this.capacity, Date.now()))
+            }
+            const userbucket = this.userbuckets.get(userId)
+            
+            // Refill tokens (inside lock to prevent race condition)
+            userbucket.refill(this.refillRatePerSecond)
+            
+            // Check tokens and decrement atomically (inside lock)
+            const tokens = userbucket.getTokens()
+            if(tokens >= 1) {
+                console.log(`Request ${requestCount}: ✅ Allowed (tokens before: ${tokens.toFixed(2)})`);
+                userbucket.decrementToken()
+                return true;
+            } else {
+                console.log(`Request ${requestCount}: ❌ Denied (tokens: ${tokens.toFixed(2)})`);
+                return false;
+            }
+        })
     }
 
-    allowToken(requestCount) {
-        this.refill()
-        if (this.tokens >= 1) {
-            console.log("Request is allowed " + requestCount);
-            this.tokens -= 1
-        } else {
-            console.log("Request is rejected " + requestCount);
-        }
+    getUserToken(userId) {
+        const userbucket = this.userbuckets.get(userId)
+        return userbucket ? userbucket.getTokens() : this.capacity
+ 
     }
+}
 
-    refill() {
-        let currentTime = new Date();
-        let elapsedSeconds = Math.floor((currentTime - this.lastRefillTimeStamp) / 1000);
-        let tokensToAdd = elapsedSeconds * this.refillRate;
-        if (tokensToAdd > 0) {
-            this.tokens = Math.min(this.tokens + tokensToAdd, this.capacity);
-            this.lastRefillTimeStamp = currentTime;
+class UserBucket {
+    constructor(capacity, lastRefillTime) {
+        this.capacity = capacity;
+        this.tokens = capacity;
+        this.lastRefillTime = lastRefillTime;
+    }
+    
+    getTokens() {
+        return this.tokens
+    }
+    
+    decrementToken() {
+        this.tokens -= 1
+    }
+    
+    refill(refillRatePerSecond) {
+        const currentTime = Date.now();
+        const elapsedTime = currentTime - this.lastRefillTime;
+        const tokensToAdd = (elapsedTime / 1000) * (refillRatePerSecond)
+        if(tokensToAdd > 0) {
+            this.tokens = Math.min(this.capacity, this.tokens + tokensToAdd)
+            this.lastRefillTime = currentTime;
         }
     }
 }
@@ -34,13 +72,21 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Capacity: 5 tokens 
-// Refill Rate: 1 token per second
-const bucket = new TokenBucket(5, 1)
+const tokenBucket = new TokenBucket(5, 1)
+console.log("Starting requests with 200ms delay between each...\n")
+console.log("Initial tokens:", tokenBucket.getUserToken("userId-1"))
+console.log("Capacity: 5, Refill rate: 1 token/second\n")
+
+// Send requests sequentially with 200ms delay to observe refill
 for (let i = 0; i < 20; i++) {
-    bucket.allowToken(i + 1)
-    await sleep(200);
-}
+    await tokenBucket.allowRequest("userId-1", i + 1)
+    const currentTokens = tokenBucket.getUserToken("userId-1")
+    console.log(`  → Tokens remaining: ${currentTokens.toFixed(2)}\n`)
+    await sleep(200); // 200ms delay between requests
+} 
+
+console.log("\nFinal token count:", tokenBucket.getUserToken("userId-1").toFixed(2))
+
 
 // | Time (sec) | Tokens before request | Request arrives? | Token used | Tokens after | Allowed / Rejected |
 // | ---------- | --------------------- | ---------------- | ---------- | ------------ | ------------------ |
