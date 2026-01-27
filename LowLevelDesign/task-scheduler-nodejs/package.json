@@ -1,0 +1,19 @@
+{
+  "name": "task-scheduler",
+  "version": "1.0.0",
+  "description": "Task Scheduler implementation in Node.js",
+  "main": "src/demo.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/demo.js"
+  },
+  "keywords": [
+    "task-scheduler",
+    "scheduler"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@datastructures-js/heap": "^4.3.3"
+  }
+}
