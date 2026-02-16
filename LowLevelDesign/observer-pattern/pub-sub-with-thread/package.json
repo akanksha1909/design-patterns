@@ -1,0 +1,22 @@
+{
+  "name": "in-memory-message-streaming-service",
+  "version": "1.0.0",
+  "description": "In-memory message streaming service supporting multiple topics, producers, and consumers with thread safety and ordered partitions",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node examples/example.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "message-streaming",
+    "pub-sub",
+    "event-streaming",
+    "message-queue",
+    "observer-pattern"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
