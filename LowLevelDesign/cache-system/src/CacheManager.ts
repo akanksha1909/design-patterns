@@ -43,12 +43,12 @@ export class CacheManager {
             const containsKey = this.cacheStorage.containsKey(key)
             if (containsKey) {
                 await this.writePolicy.write(key, value, this.cacheStorage, this.dbStorage);
-                await this.evictionAlgorithm.keyAccessed();
+                await this.evictionAlgorithm.keyAccessed(key);
             } else {
                 const size = this.cacheStorage.size();
                 const capacity = this.cacheStorage.getCapacity();
                 if (size >= capacity) {
-                    const evictKey = this.evictionAlgorithm.evictKey()
+                    const evictKey = await this.evictionAlgorithm.evictKey()
                     if (evictKey) {
                         const currentIndex = this.keyBasedExecutor.getExecutorIndexForKey(key);
                         const evictKeyIndex = this.keyBasedExecutor.getExecutorIndexForKey(evictKey);

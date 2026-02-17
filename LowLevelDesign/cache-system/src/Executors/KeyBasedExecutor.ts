@@ -5,34 +5,35 @@
  */
 
 import crypto from 'crypto';
+import { MutexLock } from "../Utils/MutexLock";
 
 
 export class KeyBasedExecutor {
     private numExecutors;
     private queues;
-    private processing;
+    private locks;
 
     constructor(numExecutors) {
         this.numExecutors = numExecutors;
         this.queues = new Map();
-        this.processing = new Map();
+        this.locks = new Map();
 
         for (let i = 0; i < numExecutors; i++) {
             this.queues.set(i, []);
-            this.processing.set(i, false);
+            this.locks.set(i, new MutexLock());
         }
     }
-
+    
     getExecutorIndexForKey(key) {
         const hashCode = this.hashKey(key)
         return hashCode % (this.numExecutors);
     }
-
+    
     hashKey(key) {
         const hash = crypto.createHash('sha256').update(key).digest('hex')
         return parseInt(hash.slice(0, 8), 16);
     }
-
+    
     submitTask(key, task) {
         const index = this.getExecutorIndexForKey(key);
         const queue = this.queues.get(index);
@@ -48,28 +49,22 @@ export class KeyBasedExecutor {
             this.processQueue(index)
         })
     }
-
-
+    
+    
     async processQueue(index) {
-        if (this.processing.get(index)) {
-            return
-        }
-        this.processing.set(index, true)
-        while (true) {
+        const lock: MutexLock = this.locks.get(index);
+        await lock.runExclusive(async () => {
             const queue = this.queues.get(index);
-            if (queue.length == 0) {
-                this.processing.set(index, false);
-                break;
+            while (queue.length > 0) {
+                const task = queue.shift();
+                await task();
             }
-            const task = queue.shift();
-            await task();
-        }
+        });
     }
-
+    
     shutdown() {
         for(let i=0; i< this.numExecutors; i++){
             this.queues.get(i).length = 0;
-            this.processing.set(i, false);
         }
     }
 }
