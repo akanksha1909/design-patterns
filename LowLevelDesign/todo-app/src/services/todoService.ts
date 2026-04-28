@@ -1,27 +1,25 @@
-import db from "../database/connection";
+import { todoModel } from '../models/todoModel';
+import todoSchema from '../validators/toDoValidator';
 
 export class ToDoService {
     async createTodo(data: { title: string; description?: string }) {
+        await todoSchema.validate(data);
         const { title, description } = data;
-        const [todo] = await db('todos_table').insert({
-            title,
-            description
-        }).returning('*');
-
+        const [todo] = await todoModel.insert(title, description);
         return todo;
     }
 
     async getToDoById(todoId) {
-        const todo = await db('todos_table').where({ id: todoId })
+        const todo = await todoModel.find(todoId);
         return todo;
     }
 
     async getAllToDos() {
-        return await db('todos_table').select('*').orderBy('created_at', 'desc');
+        return await todoModel.findAll();
     }
 
     async deleteTodo(todoId) {
-        return await db('todos_table').where({ id: todoId }).del()
+        return todoModel.delete(todoId);
     }
 }
 
