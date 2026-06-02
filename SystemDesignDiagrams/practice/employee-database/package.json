@@ -1,0 +1,25 @@
+{
+  "name": "employee-database",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "npm run build && node dist/Demo.js",
+    "migrate:latest": "knex migrate:latest",
+    "migrate:rollback": "knex migrate:rollback"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/knex": "^0.15.2",
+    "@types/pg": "^8.20.0",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "knex": "^3.2.9",
+    "pg": "^8.20.0"
+  }
+}

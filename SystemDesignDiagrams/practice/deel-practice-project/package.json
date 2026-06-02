@@ -1,0 +1,27 @@
+{
+  "name": "deel-practice-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && nodemon --exec ts-node dist/server.js",
+    "seed": "npm run build && npx ts-node dist/scripts/seedDb.js"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/express": "^5.0.4",
+    "@types/node": "^24.9.1",
+    "nodemon": "^3.1.10",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7"
+  }
+}

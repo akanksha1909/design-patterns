@@ -1,0 +1,23 @@
+{
+  "name": "whatsapp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "npm run build && node dist/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^5.2.1",
+    "http": "^0.0.1-security",
+    "typescript": "^5.9.3",
+    "ws": "^8.20.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0"
+  }
+}

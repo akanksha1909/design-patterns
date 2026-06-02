@@ -1,0 +1,74 @@
+{
+  "root": {
+    "id": "root",
+    "condition": {
+      "feature": "CREDIT_SCORE",
+      "operator": "greaterThanOrEqual",
+      "value": 750
+    },
+    "trueBranch": {
+      "id": "high-credit-salary-check",
+      "condition": {
+        "feature": "USER_SALARY",
+        "operator": "greaterThanOrEqual",
+        "value": 100000
+      },
+      "trueBranch": {
+        "id": "premium-outcome",
+        "outcome": {
+          "type": "PREMIUM",
+          "approvedAmount": 2000000
+        }
+      },
+      "falseBranch": {
+        "id": "standard-outcome",
+        "outcome": {
+          "type": "STANDARD",
+          "approvedAmount": 1000000
+        }
+      }
+    },
+    "falseBranch": {
+      "id": "mid-credit-check",
+      "condition": {
+        "feature": "CREDIT_SCORE",
+        "operator": "greaterThanOrEqual",
+        "value": 650
+      },
+      "trueBranch": {
+        "id": "employment-duration-check",
+        "condition": {
+          "feature": "EMPLOYMENT_DURATION_DAYS",
+          "operator": "greaterThanOrEqual",
+          "value": 365
+        },
+        "trueBranch": {
+          "id": "basic-outcome",
+          "outcome": {
+            "type": "BASIC",
+            "approvedAmount": 300000
+          }
+        },
+        "falseBranch": {
+          "id": "reject-short-employment",
+          "outcome": {
+            "type": "REJECT",
+            "approvedAmount": 0
+          }
+        }
+      },
+      "falseBranch": {
+        "id": "reject-low-credit",
+        "outcome": {
+          "type": "REJECT",
+          "approvedAmount": 0
+        }
+      }
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "description": "Initial loan approval decision flow",
+    "createdAt": "2024-01-01T00:00:00Z"
+  }
+}

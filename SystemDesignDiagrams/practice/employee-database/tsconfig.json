@@ -1,0 +1,17 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // File Layout
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "strict": false,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "alwaysStrict": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "target": "ES6",
+    "module": "commonjs",
+    "ignoreDeprecations": "6.0"
+  }
+}
