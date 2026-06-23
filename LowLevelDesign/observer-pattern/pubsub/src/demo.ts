@@ -1,3 +1,5 @@
+// Demo Class
+
 import { PrintSubscriber } from "./print-subscriber";
 import { PubSub } from "./pub-sub";
 import { Publisher } from "./publisher";

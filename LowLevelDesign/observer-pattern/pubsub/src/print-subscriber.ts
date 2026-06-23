@@ -1,3 +1,5 @@
+// Subscriber Concrete Class
+
 import { ISubscriber } from "./subscriber";
 
 export class PrintSubscriber implements ISubscriber {

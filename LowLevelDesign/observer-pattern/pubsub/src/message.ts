@@ -1,3 +1,5 @@
+// Message Concrete class
+
 export class Message {
     private readonly _content: string;
     constructor(content: string) {

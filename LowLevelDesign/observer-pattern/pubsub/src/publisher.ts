@@ -1,3 +1,5 @@
+// Publisher Concrete Class
+
 import { Message } from "./message";
 import { Topic } from "./topic";
 
